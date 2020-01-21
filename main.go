@@ -17,24 +17,24 @@ func (receiver *queue) lenQueue() int {
 }
 
 func (receiver *queue) addElementToQueue(elementPtr interface{}) {
-	if receiver.lenQueue() == 0{
+	if receiver.lenQueue() == 0 {
 		receiver.firstQueue = &queueNode{
 			next:  nil,
-			prev: nil,
+			prev:  nil,
 			value: elementPtr,
 		}
 		receiver.lastQueue = receiver.firstQueue
 		receiver.size++
 		return
 	}
-		receiver.size++
+	receiver.size++
 }
 
-func (receiver *queue) addLastQueue(elementPtr interface{})  {
+func (receiver *queue) addLastQueue(elementPtr interface{}) {
 	if receiver.lenQueue() == 0 {
 		receiver.firstQueue = &queueNode{
 			next:  nil,
-			prev: nil,
+			prev:  nil,
 			value: elementPtr,
 		}
 		receiver.lastQueue = receiver.firstQueue
@@ -47,7 +47,7 @@ func (receiver *queue) addLastQueue(elementPtr interface{})  {
 		if current.next == nil {
 			current.next = &queueNode{
 				next:  nil,
-				prev: current,
+				prev:  current,
 				value: elementPtr,
 			}
 			return
@@ -56,7 +56,7 @@ func (receiver *queue) addLastQueue(elementPtr interface{})  {
 	}
 }
 
-func (receiver *queue) removeFirstFromQueue()  {
+func (receiver *queue) removeFirstFromQueue() {
 	if receiver.size == 0 {
 		return
 	}
