@@ -55,6 +55,7 @@ func (receiver *queue) removeFirstFromQueue() {
 	receiver.firstQueue = receiver.firstQueue.next
 	receiver.firstQueue.prev = nil
 	receiver.size--
+	return
 }
 
 func main() {
