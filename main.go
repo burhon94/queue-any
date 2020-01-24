@@ -30,7 +30,7 @@ func (receiver *queue) addElementToQueue(elementPtr interface{}) {
 	receiver.size++
 }
 
-func (receiver *queue) addLastQueue(elementPtr interface{}) {
+func (receiver *queue) addLast(elementPtr interface{}) {
 	if receiver.lenQueue() == 0 {
 		receiver.firstQueue = &queueNode{
 			next:  nil,
