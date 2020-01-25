@@ -9,30 +9,36 @@ type queue struct {
 type queueNode struct {
 	next  *queueNode
 	prev  *queueNode
-	value interface{}
+	value string
 }
 
 func (receiver *queue) lenQueue() int {
 	return receiver.size
 }
 
-func (receiver *queue) firstInQueue() *queueNode {
-	return receiver.firstQueue
+func (receiver *queue) firstInQueue() interface{} {
+	if receiver.firstQueue == nil {
+		return nil
+	}
+	return receiver.firstQueue.value
 }
 
-func (receiver *queue) lastInQueue() *queueNode {
-	return receiver.lastQueue
+func (receiver *queue) lastInQueue() interface{} {
+	if receiver.lastQueue == nil {
+		return nil
+	}
+	return receiver.lastQueue.value
 }
 
-func (receiver *queue) addLast(elementPtr interface{}) {
+func (receiver *queue) addLast(elementPtr string) {
 	if receiver.lenQueue() == 0 {
 		receiver.firstQueue = &queueNode{
 			next:  nil,
 			prev:  nil,
 			value: elementPtr,
 		}
-		receiver.lastQueue = receiver.firstQueue
 		receiver.size++
+		receiver.lastQueue = receiver.firstQueue
 		return
 	}
 	receiver.size++
@@ -44,6 +50,7 @@ func (receiver *queue) addLast(elementPtr interface{}) {
 				prev:  current,
 				value: elementPtr,
 			}
+			receiver.lastQueue = current.next
 			return
 		}
 		current = current.next

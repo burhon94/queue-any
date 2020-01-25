@@ -2,90 +2,80 @@ package main
 
 import "testing"
 
-func Test_empty_queue(t *testing.T) {
-	l := queue{}
-	if l.lenQueue() != 0 {
-		t.Error("queue must be zero, got: ", l.lenQueue())
+func Test_queue_with_empty_element(t *testing.T) {
+	queueList := queue{}
+	if queueList.lenQueue() != 0 {
+		t.Error("The queue length must be zero, got: ", queueList.lenQueue())
+	}
+	firstInQueue := queueList.firstInQueue()
+	if firstInQueue != nil {
+		t.Error("The first element must be nil from empty queue, got: ", firstInQueue)
+	}
+	lastInQueue := queueList.lastInQueue()
+	if lastInQueue != nil {
+		t.Error("The last element must be nil from empty queue, got: ", lastInQueue)
+	}
+	queueList.addLast("Jack")
+	if queueList.lenQueue() != 1 {
+		t.Error("The queue length must be equal 1, got: ", queueList.lenQueue())
+	}
+	queueList.removeFirstFromQueue()
+	if queueList.lenQueue() != 0 {
+		t.Error("The queue after remove element must be empty, got: ", queueList.lenQueue())
 	}
 }
 
 func Test_queue_with_one_element(t *testing.T) {
-	l := queue{}
-	l.addLast(1)
-	if l.lenQueue() != 1 {
-		t.Error("queue size must be one, got: ", l.lenQueue())
+	queueList := queue{}
+	queueList.addLast("Jack")
+	if queueList.lenQueue() != 1 {
+		t.Error("The queue length must be equal one, got: ", queueList.lenQueue())
+	}
+	firstInQueue := queueList.firstInQueue()
+	if firstInQueue != "Jack" {
+		t.Error("The first element in queue must be \"Jack\", got: ", firstInQueue)
+	}
+	lastInQueue := queueList.lastInQueue()
+	if lastInQueue != "Jack" {
+		t.Error("The last element in queue must be \"Jack\", got: ", lastInQueue)
+	}
+	queueList.addLast("Alex")
+	if queueList.lenQueue() != 2 {
+		t.Error("The queue length must be equal 2, got: ", queueList.lenQueue())
+	}
+	queueList.removeFirstFromQueue()
+	if queueList.lastInQueue() != queueList.firstInQueue() {
+		t.Error("The remove first element in queue \"Jack\",the first and the last must be \"Alex\" , got: ", "first in queue ", queueList.firstInQueue(), ", last in queue ", queueList.lastInQueue())
 	}
 }
 
-func Test_queue_with_multiple_elements(t *testing.T) {
-	l := queue{}
-	l.addLast(1)
-	l.addLast(2)
-	l.addLast(3)
-	l.addLast(4)
-	l.addLast(5)
-	if l.lenQueue() != 5 {
-		t.Error("queue size must be 5, got: ", l.lenQueue())
+func Test_queue_with_multiple_element(t *testing.T) {
+	queueList := queue{}
+	queueList.addLast("Jack")
+	queueList.addLast("Alex")
+	queueList.addLast("Mike")
+	firstInQueue := queueList.firstInQueue()
+	if firstInQueue != "Jack" {
+		t.Error("The first in queue must be \"Jack\", got: ", firstInQueue)
+	}
+	lastInQueue := queueList.lastInQueue()
+	if lastInQueue != "Mike" {
+		t.Error("The last in queue must be \"Mike\", got: ", lastInQueue)
+	}
+	queueList.addLast("Anna")
+	if queueList.lastInQueue() != "Anna" {
+		t.Error("After add last in queue \"Anna\", the last must be, got: ", queueList.lastInQueue())
+	}
+	queueList.removeFirstFromQueue()
+	if queueList.firstInQueue() == "Jack" {
+		t.Error("After remove the first element in queue \"Jack\", the first in queue must be \"Alex\", got: ", queueList.firstInQueue())
 	}
 }
 
-func Test_add_element_to_empty_queue(t *testing.T) {
-	l := queue{}
-	l.addLast(1)
-	if l.lenQueue() != 1 {
-		t.Error("queue size after adding one element must be one, got: ", l.lenQueue())
-	}
-}
-
-func Test_add_element_last_in_queue_with_queue_one_element(t *testing.T) {
-	l := queue{}
-	l.addLast(1)
-	l.addLast(2)
-	if l.lenQueue() != 2 {
-		t.Error("queue size is one after adding one element must be 2, got: ", l.lenQueue())
-	}
-}
-
-func Test_add_elements_last_to_queue_with_multiple_elements(t *testing.T) {
-	l := queue{}
-	l.addLast(1)
-	l.addLast(2)
-	l.addLast(1)
-	l.addLast(2)
-	l.addLast(1)
-	l.addLast(2)
-	if l.lenQueue() != 6 {
-		t.Error("queue size is 3 after adding 3 elements must be 6, got: ", l.lenQueue())
-	}
-}
-
-func Test_remove_first_element_to_empty_queue(t *testing.T) {
-	l := queue{}
-	l.size = 0
-	l.removeFirstFromQueue()
-	if l.lenQueue() != 0 {
-		t.Error("queue size is zero after remove first element queue size must be zero(IT'S NOT LOGIC), got: ", l.lenQueue())
-	}
-}
-
-func Test_remove_first_element_from_queue_with_one_element(t *testing.T) {
-	l := queue{}
-	l.size = 1
-	l.removeFirstFromQueue()
-	if l.lenQueue() != 0 {
-		t.Error("queue size is one after remove first element queue size must be zero, got: ", l.lenQueue())
-	}
-}
-
-func Test_remove_first_element_from_queue_with_multiple_element(t *testing.T) {
-	l := queue{}
-	l.addLast(1)
-	l.addLast(2)
-	l.addLast(3)
-	l.addLast(4)
-	l.addLast(5)
-	l.removeFirstFromQueue()
-	if l.lenQueue() != 4 {
-		t.Error("queue size is 5 after remove first element queue size must be 4, got: ", l.lenQueue())
+func Test_remove_first_from_empty_queue(t *testing.T) {
+	queueList := queue{}
+	queueList.removeFirstFromQueue()
+	if queueList.lenQueue() != 0 {
+		t.Error("The queue length must be 0, got: ", queueList.lenQueue())
 	}
 }
