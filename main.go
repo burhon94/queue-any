@@ -16,6 +16,14 @@ func (receiver *queue) lenQueue() int {
 	return receiver.size
 }
 
+func (receiver *queue) firstInQueue() *queueNode {
+	return receiver.firstQueue
+}
+
+func (receiver *queue) lastInQueue() *queueNode {
+	return receiver.lastQueue
+}
+
 func (receiver *queue) addLast(elementPtr interface{}) {
 	if receiver.lenQueue() == 0 {
 		receiver.firstQueue = &queueNode{
